@@ -1,8 +1,8 @@
 import sys
 
 for line in sys.stdin:
+    line = line.strip()
     if line == line[::-1]:
-        print('true')
-    else :
-        print('false')    
-
+        print('yes')
+    else:
+        print('no')
