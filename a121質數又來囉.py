@@ -7,27 +7,50 @@ for inputValue in sys.stdin:
     startNumber, endNumber = inputValue.split()
 
     result = []
+    primeList = []
+    lastSqrtValue = 0
     for i in range(int(startNumber), int(endNumber)+1):
-        isPrime = True
-        if i % 2 == 0:
-            continue
-        if i % 3 == 0:
-            continue
-        if i % 5 == 0:
-            continue
-        if i % 7 == 0:
-            continue
-        if i % 11 == 0:
-            continue
+    
+        sqrtValue = int(math.sqrt(i))
 
-        for j in range(2, int(math.sqrt(i))):
-            # print(str(i) + '-'+str(j)+','+str(i % j))
-            if i % j == 0:
-                isPrime = False
-                break
-        if isPrime:
-            result.append(i)
+        if lastSqrtValue != sqrtValue and len(primeList) > 0:
+            isPrime = True
+            lastSqrtValue = sqrtValue
+            for j in range(sqrtValue+1, sqrtValue+2):
+                # print(str(i) + '-'+str(j)+','+str(i % j))
+                primeToAdd = True
+                for m in range(2, j):
+                    if j % m == 0 and j != m:
+                        primeToAdd = False  
+                        break
+                if primeToAdd:
+                    primeList.append(j)
+
+        if len(primeList) > 0 and lastSqrtValue == sqrtValue:
+            isPrime = True
+            for n in primeList:
+                if i % n == 0:
+                    isPrime = False
+            if isPrime:
+                result.append(i)         
+        else :
+            isPrime = True
+            for j in range(2, sqrtValue+1):
+                # print(str(i) + '-'+str(j)+','+str(i % j))
+                primeToAdd = True
+                for m in range(2, j):
+                    if j % m == 0 and j != m:
+                        primeToAdd = False  
+                        break
+                if primeToAdd:
+                    primeList.append(j)
+            for n in primeList:
+                if i % n == 0:
+                    isPrime = False
+            if isPrime:
+                result.append(i)  
     # print(' '.join([str(r) for r in result]))
-    tEnd = time.time()  # 計時結束
-    print("It cost %f sec" % (tEnd - tStart))  # 會自動做近位
-    print(str(len(result)))
+    print(str(len(result)).strip())
+    # print(primeList)
+
+
