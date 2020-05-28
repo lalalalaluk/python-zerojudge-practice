@@ -1,7 +1,9 @@
 import sys
 import math
+import time
 
 for inputValue in sys.stdin:
+    tStart = time.time()  # 計時開始
     startNumber, endNumber = inputValue.split()
 
     result = []

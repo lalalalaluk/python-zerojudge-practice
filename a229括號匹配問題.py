@@ -1,15 +1,19 @@
 import sys
 
 result = []
-paran = []
+resultStr = ''
 n = 0
+paran = []
 
 
 def dfs(open, close, now):
+    global paran
+    global resultStr
+
     if open > n or close > open:
         return
     if now == n*2:
-        result.append(paran)
+        resultStr += (''.join(tuple(paran)) + '\n')
         return
 
     paran[now] = '('
@@ -17,10 +21,23 @@ def dfs(open, close, now):
     paran[now] = ')'
     dfs(open, close+1, now+1)
 
+def setDfs():
+    for i in range(1,12):
+        global n
+        n = i
+        global resultStr
+        resultStr = ''
+        global paran
+        paran = [None]*(n*2)
+        dfs(0, 0, 0)
+        result.append(resultStr)
+
+setDfs()
 
 for inputValue in sys.stdin:
-    n = int(inputValue)
-    paran = ['']*(n*2)
-    dfs(0, 0, 0)
-
-    print(result)
+    print(result[int(inputValue)-1])
+    # n = int(inputValue)
+    # resultStr = ''
+    # paran = [None]*(n*2)
+    # dfs(0, 0, 0)
+    # print(len(resultStr))
